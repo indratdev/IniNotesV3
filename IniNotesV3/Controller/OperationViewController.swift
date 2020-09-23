@@ -26,12 +26,6 @@ class OperationViewController: UIViewController {
         
     }
     
-    func getDataText(){
-        
-    }
-    
-    
-    
     
     @IBAction func saveBtnPressed(_ sender: UIBarButtonItem) {
         guard let title = textField01.text else {return}
@@ -55,28 +49,26 @@ class OperationViewController: UIViewController {
             // save
             do {
                 try context.save()
-
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "createDataNotif"), object: nil)
-//                DispatchQueue.main.async {
-//                    let alert = UIAlertController.showAlertSuccess {
-//                        self.goBack()
-//
-//                    }
-//                    self.present(alert, animated: true)
-//                }
+                DispatchQueue.main.async {
+                    let alert = UIAlertController.showAlertSuccess {
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "createDataNotif"), object: nil)
+                        self.goBack()
+                    }
+                    self.present(alert, animated: true)
+                }
             }catch let err{
                 print(err)
                 let alert = util.showAlert(message: "Error Simpan Data", titleAction: "OK")
                 self.present(alert, animated: true)
             }
         }
-        goBack()
+        
     }
     
     
-    func goBack(){
-       navigationController?.popViewController(animated: true)
-       dismiss(animated: true, completion: nil)
+    private func goBack(){
+        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
     
