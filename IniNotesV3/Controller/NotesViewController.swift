@@ -20,6 +20,7 @@ class NotesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadNotes()
+        getNotifCreate()
         
         myTableView.delegate = self
         myTableView.dataSource = self
@@ -69,9 +70,27 @@ extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    
-    
-    
+    // delete
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .destructive, title: "Delete", handler: {(action, view, completionHandler) in
+            let data = self.items![indexPath.row]
+            
+            let alert = UIAlertController(title: "Delete", message: "Are You Sure Delete This Data ?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Delete", style: .default, handler: {(action) in
+                self.op.context.delete(data)
+                do {
+                    try self.op.context.save()
+                }catch{
+                    print("Error Delete")
+                }
+                
+                self.loadNotes()
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+        })
+        return UISwipeActionsConfiguration(actions: [action])
+    }
 }
 
 

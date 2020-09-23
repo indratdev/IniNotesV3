@@ -55,20 +55,22 @@ class OperationViewController: UIViewController {
             // save
             do {
                 try context.save()
-                DispatchQueue.main.async {
-                    let alert = UIAlertController.showAlertSuccess {
-                        NotificationCenter.default.post(name: NSNotification.Name("createDataNotif"), object: nil)
-                        self.goBack()
-                    }
-                    self.present(alert, animated: true)
-                }
+
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "createDataNotif"), object: nil)
+//                DispatchQueue.main.async {
+//                    let alert = UIAlertController.showAlertSuccess {
+//                        self.goBack()
+//
+//                    }
+//                    self.present(alert, animated: true)
+//                }
             }catch let err{
                 print(err)
                 let alert = util.showAlert(message: "Error Simpan Data", titleAction: "OK")
                 self.present(alert, animated: true)
             }
         }
-       
+        goBack()
     }
     
     
