@@ -20,4 +20,17 @@ extension UIAlertController {
         
         return alert
     }
+    
+    static func showAlertDelete(onConfirm: @escaping() -> Void) -> UIAlertController{
+        let alert = UIAlertController(title: "Delete", message: "Are You Sure Delete This Note ?", preferredStyle: .alert)
+        let del = UIAlertAction(title: "Delete", style: .default) {_ in onConfirm() }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(del)
+        alert.addAction(cancel)
+        
+        return alert
+        
+        
+    }
+    
 }

@@ -26,6 +26,7 @@ class NotesViewController: UIViewController {
         myTableView.dataSource = self
     }
     
+    
     func getNotifCreate(){
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshData), name: NSNotification.Name(rawValue: "createDataNotif"), object: nil)
     }
@@ -74,9 +75,8 @@ extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let action = UIContextualAction(style: .destructive, title: "Delete", handler: {(action, view, completionHandler) in
             let data = self.items![indexPath.row]
-            
-            let alert = UIAlertController(title: "Delete", message: "Are You Sure Delete This Data ?", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Delete", style: .default, handler: {(action) in
+
+            let alert = UIAlertController.showAlertDelete {
                 self.op.context.delete(data)
                 do {
                     try self.op.context.save()
@@ -85,8 +85,7 @@ extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
                 }
                 
                 self.loadNotes()
-            }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            }
             self.present(alert, animated: true)
         })
         return UISwipeActionsConfiguration(actions: [action])
