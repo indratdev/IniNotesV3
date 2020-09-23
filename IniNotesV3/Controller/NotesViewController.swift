@@ -8,12 +8,18 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class NotesViewController: UIViewController {
+    @IBOutlet weak var mySearch: UISearchBar!
+    @IBOutlet weak var myTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
+    
+    @IBAction func addBtnPressed(_ sender: UIBarButtonItem) {
+    }
+    
 
 
 }
