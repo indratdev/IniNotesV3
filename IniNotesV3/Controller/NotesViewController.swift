@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class NotesViewController: UIViewController {
     @IBOutlet weak var mySearch: UISearchBar!
@@ -25,6 +26,7 @@ class NotesViewController: UIViewController {
         
         myTableView.delegate = self
         myTableView.dataSource = self
+        mySearch.delegate = self
     }
     
     
@@ -103,4 +105,29 @@ extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
     
 }
 
+extension NotesViewController: UISearchBarDelegate {
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        print(mySearch.text)
+//    }
+    // MARK: SEARCH DATA
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let request: NSFetchRequest<Notes> = Notes.fetchRequest()
+        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", mySearch.text!)
+        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        
+        do {
+            items = try context.fetch(request)
+        }catch{
+            print("error search")
+        }
+        myTableView.reloadData()
+    }
+    
+    // MARK: DEFAULT SEARCH DATA
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if mySearch.text?.count == 0 {
+            loadNotes()
+        }
+    }
+}
 
