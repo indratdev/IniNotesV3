@@ -24,19 +24,22 @@ class OperationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-//            indexP = nil
         self.items = op.loadData()
         load()
+        
     }
     
-    func load(){
-        let data = items![indexP!]
-        textField01.text = data.title
-        textviewd02.text = data.descriptionNote
+    // load data
+    private func load(){
+        if indexP != nil {
+            let data = items![indexP!]
+            textField01.text = data.title
+            textviewd02.text = data.descriptionNote
+        }
+        
     }
     
+    // GET INDEX
     private func checkingNote(indexP: Int?) -> Int?{
         var data: Int?
         if indexP == nil {
@@ -47,39 +50,44 @@ class OperationViewController: UIViewController {
         return data
     }
     
-    // MARK: SAVE DATA
+    // MARK: CHECKING NOTE
     @IBAction func saveBtnPressed(_ sender: UIBarButtonItem) {
         let data = checkingNote(indexP: self.indexP)
         switch data {
         case .none:
-            //processSave()
-            print("proses save")
+            processSave()
+            print("lets to proccess save")
         case .some(let data) :
             processEdit(index: data)
-            
+            print("lets to proccess edit")
         }
     }
     
+    
+    //  MARK: PROCESS UPDATE
     private func processEdit(index: Int){
         print("index : \(index)")
         self.items = op.loadData()
-        
         
         guard let title = textField01.text else {return}
         guard let descriptionNote = textviewd02.text else {return}
         
         let check = validation.validateTextfield(title: title, description: descriptionNote)
-        
         if check {
-//            print("update berhasil")
             let person = items![index]
             person.title = title
             person.descriptionNote = descriptionNote
             person.modifDate = Date()
             do {
                 try op.context.save()
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "createDataNotif"), object: nil)
-                goBack()
+                DispatchQueue.main.async {
+                    let alert = UIAlertController.showAlertSuccess {
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "createDataNotif"), object: nil)
+                        self.goBack()
+                    }
+                    self.present(alert, animated: true)
+                }
+                
             }catch{
                 print("Error : \(error) ")
             }
@@ -91,6 +99,7 @@ class OperationViewController: UIViewController {
     }
     
     
+    // MARK: PROCESS SAVE
     private func processSave(){
         guard let title = textField01.text else {return}
         guard let descriptionNote = textviewd02.text else {return}
