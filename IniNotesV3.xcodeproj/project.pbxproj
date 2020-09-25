@@ -76,11 +76,11 @@
 				8F91969B251B99A200961E1A /* SceneDelegate.swift */,
 				8F9196B6251B9A8E00961E1A /* Model Data */,
 				8F9196B0251B9A0100961E1A /* Controller */,
+				8F9196BB251BA32900961E1A /* Others */,
 				8F9196B1251B9A0800961E1A /* View */,
 				8F9196A5251B99A500961E1A /* Assets.xcassets */,
 				8F9196A7251B99A500961E1A /* LaunchScreen.storyboard */,
 				8F9196AA251B99A500961E1A /* Info.plist */,
-				8F9196BB251BA32900961E1A /* Others */,
 			);
 			path = IniNotesV3;
 			sourceTree = "<group>";

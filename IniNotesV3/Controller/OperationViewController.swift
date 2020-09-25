@@ -26,6 +26,7 @@ class OperationViewController: UIViewController {
         super.viewDidLoad()
         self.items = op.loadData()
         load()
+        loadUI()
         
     }
     
@@ -35,6 +36,17 @@ class OperationViewController: UIViewController {
             let data = items![indexP!]
             textField01.text = data.title
             textviewd02.text = data.descriptionNote
+        }
+        
+    }
+    
+    private func loadUI(){
+        textviewd02.layer.cornerRadius = 10
+        
+        if indexP != nil {
+            self.navigationItem.title = "Edit Form"
+        }else{
+            self.navigationItem.title = "Create New"
         }
         
     }
@@ -106,7 +118,6 @@ class OperationViewController: UIViewController {
         
         // cek ada yang
         let check = validation.validateTextfield(title: title, description: descriptionNote)
-        
         if check == false {
             // GAGAL
             let alert = util.showAlert(message: "Minimal Judul atau Deskripsi \(util.minText) huruf", titleAction: "OK")
@@ -118,7 +129,6 @@ class OperationViewController: UIViewController {
             note.title = title
             note.descriptionNote = descriptionNote
             note.addDate = Date()
-            
             // save
             do {
                 try context.save()
