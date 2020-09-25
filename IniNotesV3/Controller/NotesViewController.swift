@@ -16,6 +16,7 @@ class NotesViewController: UIViewController {
     let util = Utilities()
     let op = Operations()
     var items: [Notes]?
+    var indexP: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,29 +36,31 @@ class NotesViewController: UIViewController {
         loadNotes()
     }
     
+    // MARK: LOAD DATA
     func loadNotes(){
         self.items = op.loadData()
-        
         DispatchQueue.main.async {
             self.myTableView.reloadData()
         }
     }
     
     @IBAction func addBtnPressed(_ sender: UIBarButtonItem) {
-        
+        self.indexP = nil
         performSegue(withIdentifier: util.segueNote, sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == util.segueNote) {
-            
+            let controller = segue.destination as? OperationViewController
+            controller?.indexP = self.indexP
         }
+
     }
 }
 
 
 extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
-    
+    // GET NUMBER OF ROW
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items?.count ?? 0
     }
@@ -71,7 +74,7 @@ extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    // delete
+    // MARK: DELETE DATA
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let action = UIContextualAction(style: .destructive, title: "Delete", handler: {(action, view, completionHandler) in
             let data = self.items![indexPath.row]
@@ -90,6 +93,14 @@ extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
         })
         return UISwipeActionsConfiguration(actions: [action])
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.indexP = indexPath.row
+        
+        performSegue(withIdentifier: util.segueNote, sender: indexPath)
+    }
+    
+    
 }
 
 

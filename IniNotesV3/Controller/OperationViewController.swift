@@ -17,17 +17,65 @@ class OperationViewController: UIViewController {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let validation = Validation()
+    let op = Operations()
     let util = Utilities()
     var items: [Notes]?
+    var indexP: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
+//            indexP = nil
+        
+
+    }
+    
+    private func checkingNote(indexP: Int?) -> Int?{
+        var data: Int?
+        if indexP == nil {
+            data = nil
+        }else{
+            data = indexP
+        }
+        return data
+    }
+    
+    // MARK: SAVE DATA
+    @IBAction func saveBtnPressed(_ sender: UIBarButtonItem) {
+        let data = checkingNote(indexP: self.indexP)
+        switch data {
+        case .none:
+            //processSave()
+            print("proses save")
+        case .some(let data) :
+            processEdit(index: data)
+            
+        }
+    }
+    
+    private func processEdit(index: Int){
+        print("index : \(index)")
+        self.items = op.loadData()
+        let person = items![index]
+        
+        guard let title = textField01.text else {return}
+        guard let descriptionNote = textviewd02.text else {return}
+        
+        let check = validation.validateTextfield(title: title, description: descriptionNote)
+        
+        if check {
+            print("update berhasil")
+        }else{
+            print("update gagal")
+            let alert = UIAlertController.showAlert(message: "Minimal Judul atau Deskripsi \(util.minText) huruf", titleAction: "OK")
+            self.present(alert, animated: true)
+        }
+        
     }
     
     
-    @IBAction func saveBtnPressed(_ sender: UIBarButtonItem) {
+    private func processSave(){
         guard let title = textField01.text else {return}
         guard let descriptionNote = textviewd02.text else {return}
         
@@ -56,20 +104,21 @@ class OperationViewController: UIViewController {
                     }
                     self.present(alert, animated: true)
                 }
-            }catch let err{
-                print(err)
+            }catch{
+                //                print(err)
                 let alert = util.showAlert(message: "Error Simpan Data", titleAction: "OK")
                 self.present(alert, animated: true)
             }
         }
-        
     }
     
     
+}
+
+
+extension OperationViewController {
     private func goBack(){
         navigationController?.popViewController(animated: true)
         dismiss(animated: true, completion: nil)
     }
-    
-    
 }

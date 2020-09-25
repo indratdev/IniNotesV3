@@ -29,8 +29,19 @@ extension UIAlertController {
         alert.addAction(cancel)
         
         return alert
+    }
+    
+    static func showAlertFailedProcess(onConfirm: @escaping() -> Void) -> UIAlertController{
+        let alert = UIAlertController(title: "Failed", message: "Cannot Delete Data", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         
-        
+        return alert
+    }
+    
+    static func showAlert(message: String, titleAction: String) -> UIAlertController{
+        let alert = UIAlertController(title: "GAGAL", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: titleAction, style: .cancel, handler: nil))
+        return alert
     }
     
 }
