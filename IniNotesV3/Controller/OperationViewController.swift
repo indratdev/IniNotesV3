@@ -27,8 +27,14 @@ class OperationViewController: UIViewController {
         
         
 //            indexP = nil
-        
-
+        self.items = op.loadData()
+        load()
+    }
+    
+    func load(){
+        let data = items![indexP!]
+        textField01.text = data.title
+        textviewd02.text = data.descriptionNote
     }
     
     private func checkingNote(indexP: Int?) -> Int?{
@@ -57,7 +63,7 @@ class OperationViewController: UIViewController {
     private func processEdit(index: Int){
         print("index : \(index)")
         self.items = op.loadData()
-        let person = items![index]
+        
         
         guard let title = textField01.text else {return}
         guard let descriptionNote = textviewd02.text else {return}
@@ -65,9 +71,19 @@ class OperationViewController: UIViewController {
         let check = validation.validateTextfield(title: title, description: descriptionNote)
         
         if check {
-            print("update berhasil")
+//            print("update berhasil")
+            let person = items![index]
+            person.title = title
+            person.descriptionNote = descriptionNote
+            person.modifDate = Date()
+            do {
+                try op.context.save()
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "createDataNotif"), object: nil)
+                goBack()
+            }catch{
+                print("Error : \(error) ")
+            }
         }else{
-            print("update gagal")
             let alert = UIAlertController.showAlert(message: "Minimal Judul atau Deskripsi \(util.minText) huruf", titleAction: "OK")
             self.present(alert, animated: true)
         }
