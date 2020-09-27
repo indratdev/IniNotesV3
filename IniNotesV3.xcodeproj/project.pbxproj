@@ -21,6 +21,11 @@
 		8F9196BD251BA57E00961E1A /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9196BC251BA57E00961E1A /* Validation.swift */; };
 		8F9196BF251BB51800961E1A /* Operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9196BE251BB51800961E1A /* Operations.swift */; };
 		8F9196C1251BBDA100961E1A /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9196C0251BBDA100961E1A /* Alert.swift */; };
+		8FF398C52520652200A60D78 /* Delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FF398C02520652200A60D78 /* Delete.png */; };
+		8FF398C62520652200A60D78 /* Edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FF398C12520652200A60D78 /* Edit.png */; };
+		8FF398C72520652200A60D78 /* Search.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FF398C22520652200A60D78 /* Search.png */; };
+		8FF398C82520652200A60D78 /* Create.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FF398C32520652200A60D78 /* Create.png */; };
+		8FF398C92520652200A60D78 /* Awal.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FF398C42520652200A60D78 /* Awal.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +45,11 @@
 		8F9196BC251BA57E00961E1A /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		8F9196BE251BB51800961E1A /* Operations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operations.swift; sourceTree = "<group>"; };
 		8F9196C0251BBDA100961E1A /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		8FF398C02520652200A60D78 /* Delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Delete.png; sourceTree = "<group>"; };
+		8FF398C12520652200A60D78 /* Edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Edit.png; sourceTree = "<group>"; };
+		8FF398C22520652200A60D78 /* Search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Search.png; sourceTree = "<group>"; };
+		8FF398C32520652200A60D78 /* Create.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Create.png; sourceTree = "<group>"; };
+		8FF398C42520652200A60D78 /* Awal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Awal.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,13 +82,13 @@
 		8F919698251B99A200961E1A /* IniNotesV3 */ = {
 			isa = PBXGroup;
 			children = (
+				8FF398BE252064F800A60D78 /* Resources */,
 				8F919699251B99A200961E1A /* AppDelegate.swift */,
 				8F91969B251B99A200961E1A /* SceneDelegate.swift */,
 				8F9196B6251B9A8E00961E1A /* Model Data */,
 				8F9196B0251B9A0100961E1A /* Controller */,
 				8F9196BB251BA32900961E1A /* Others */,
 				8F9196B1251B9A0800961E1A /* View */,
-				8F9196A5251B99A500961E1A /* Assets.xcassets */,
 				8F9196A7251B99A500961E1A /* LaunchScreen.storyboard */,
 				8F9196AA251B99A500961E1A /* Info.plist */,
 			);
@@ -121,6 +131,27 @@
 				8F9196C0251BBDA100961E1A /* Alert.swift */,
 			);
 			path = Others;
+			sourceTree = "<group>";
+		};
+		8FF398BE252064F800A60D78 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8FF398BF2520650A00A60D78 /* Images */,
+				8F9196A5251B99A500961E1A /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		8FF398BF2520650A00A60D78 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				8FF398C42520652200A60D78 /* Awal.png */,
+				8FF398C32520652200A60D78 /* Create.png */,
+				8FF398C12520652200A60D78 /* Edit.png */,
+				8FF398C02520652200A60D78 /* Delete.png */,
+				8FF398C22520652200A60D78 /* Search.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,7 +213,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F9196A9251B99A500961E1A /* LaunchScreen.storyboard in Resources */,
+				8FF398C92520652200A60D78 /* Awal.png in Resources */,
+				8FF398C62520652200A60D78 /* Edit.png in Resources */,
+				8FF398C52520652200A60D78 /* Delete.png in Resources */,
+				8FF398C82520652200A60D78 /* Create.png in Resources */,
 				8F9196A6251B99A500961E1A /* Assets.xcassets in Resources */,
+				8FF398C72520652200A60D78 /* Search.png in Resources */,
 				8F9196A1251B99A200961E1A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
