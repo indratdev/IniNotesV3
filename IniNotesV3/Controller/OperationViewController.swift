@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import NotificationCenter
 
 class OperationViewController: UIViewController {
     @IBOutlet weak var label01: UILabel!
@@ -26,6 +27,9 @@ class OperationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
         self.items = op.loadData()
         load()
         loadUI()
@@ -38,10 +42,33 @@ class OperationViewController: UIViewController {
         if sender.isOn == true {
             print("jali on")
             myDate.isHidden = false
+            
+            
         }else if sender.isOn == false {
             print("false")
             myDate.isHidden = true
         }
+    }
+    
+    func setNotificationNotes(){
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound]) {(granted, error) in
+        }
+        let content = UNMutableNotificationContent()
+        content.title = "alert notif"
+        content.body = "cek body"
+        content.sound = UNNotificationSound.default
+        
+        
+        let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: myDate.date)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+        let uuidString = UUID().uuidString
+        let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
+        
+        center.add(request) {(error) in
+            
+        }
+        
     }
     
     
@@ -79,15 +106,16 @@ class OperationViewController: UIViewController {
     
     // MARK: CHECKING NOTE
     @IBAction func saveBtnPressed(_ sender: UIBarButtonItem) {
-        let data = checkingNote(indexP: self.indexP)
-        switch data {
-        case .none:
-            processSave()
-            print("lets to proccess save")
-        case .some(let data) :
-            processEdit(index: data)
-            print("lets to proccess edit")
-        }
+        setNotificationNotes()
+//        let data = checkingNote(indexP: self.indexP)
+//        switch data {
+//        case .none:
+//            processSave()
+//            print("lets to proccess save")
+//        case .some(let data) :
+//            processEdit(index: data)
+//            print("lets to proccess edit")
+//        }
     }
     
     
