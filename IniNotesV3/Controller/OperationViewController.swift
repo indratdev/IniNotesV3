@@ -14,6 +14,8 @@ class OperationViewController: UIViewController {
     @IBOutlet weak var textField01: UITextField!
     @IBOutlet weak var label02: UILabel!
     @IBOutlet weak var textviewd02: UITextView!
+    @IBOutlet weak var mySwitch: UISwitch!
+    @IBOutlet weak var myDate: UIDatePicker!
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let validation = Validation()
@@ -27,8 +29,21 @@ class OperationViewController: UIViewController {
         self.items = op.loadData()
         load()
         loadUI()
+        mySwitch.isOn = false
         
     }
+    
+    
+    @IBAction func mySwitchChange(_ sender: UISwitch) {
+        if sender.isOn == true {
+            print("jali on")
+            myDate.isHidden = false
+        }else if sender.isOn == false {
+            print("false")
+            myDate.isHidden = true
+        }
+    }
+    
     
     // load data
     private func load(){
@@ -157,3 +172,4 @@ extension OperationViewController {
         dismiss(animated: true, completion: nil)
     }
 }
+
